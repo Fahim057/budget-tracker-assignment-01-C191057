@@ -7,6 +7,8 @@ const selectInput = document.getElementById("type");
 const incomeList = document.getElementById("income-list");
 const expenseList = document.getElementById("expense-list");
 const totalIncome = document.getElementById("total-income");
+const totalExpense = document.getElementById("total-expense")
+const addDeleteButton = document.getElementById("add-delete-button");
 
 function formatMoney(value) {
   return Math.abs(Number(value)).toLocaleString(undefined, {
@@ -30,7 +32,18 @@ calculateIncome();
 /**
  * Task 1: Calculate total expense
  */
-function calculateExpense() {}
+function calculateExpense() {
+  let sum = 0;
+  for (let item of expenseList.children) {
+    const valueString =
+      item.children[0].children[1].children[0].innerHTML.replace(/,/g, "");
+
+    console.log(parseFloat(valueString));
+    sum += parseFloat(valueString);
+  }
+  totalExpense.innerHTML = formatMoney(sum);
+}
+calculateExpense();
 
 /**
  * Task 2: Calculate the budget
@@ -87,6 +100,7 @@ function addEntry() {
 
   // update total income value
   calculateIncome();
+  calculateExpense();
 }
 
 addExpenseButton.addEventListener("click", addEntry);
