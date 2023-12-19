@@ -8,6 +8,7 @@ const incomeList = document.getElementById("income-list");
 const expenseList = document.getElementById("expense-list");
 const totalIncome = document.getElementById("total-income");
 const totalExpense = document.getElementById("total-expense")
+const totalBudget = document.getElementById("total-budget")
 const addDeleteButton = document.getElementById("add-delete-button");
 
 function formatMoney(value) {
@@ -49,7 +50,13 @@ calculateExpense();
  * Task 2: Calculate the budget
  */
 
-function calculateBudget() {}
+function calculateBudget() {
+  let Income = parseFloat(totalIncome.innerHTML.replace(/,/g, ""));
+    let Expense = parseFloat(totalExpense.innerHTML.replace(/,/g, ""));
+    let Budget = Income - Expense;
+    totalBudget.innerHTML = formatMoney(Budget);
+}
+calculateBudget();
 
 /**
  * Task 3: Delete Entry
@@ -101,6 +108,7 @@ function addEntry() {
   // update total income value
   calculateIncome();
   calculateExpense();
+  
 }
 
 addExpenseButton.addEventListener("click", addEntry);
