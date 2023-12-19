@@ -7,8 +7,8 @@ const selectInput = document.getElementById("type");
 const incomeList = document.getElementById("income-list");
 const expenseList = document.getElementById("expense-list");
 const totalIncome = document.getElementById("total-income");
-const totalExpense = document.getElementById("total-expense")
-const totalBudget = document.getElementById("total-budget")
+const totalExpense = document.getElementById("total-expense");
+const totalBudget = document.getElementById("total-budget");
 const addDeleteButton = document.getElementById("add-delete-button");
 
 function formatMoney(value) {
@@ -51,7 +51,7 @@ calculateExpense();
  */
 
 function calculateBudget() {
-  let Income = parseFloat(totalIncome.innerHTML.replace(/,/g, ""));
+    let Income = parseFloat(totalIncome.innerHTML.replace(/,/g, ""));
     let Expense = parseFloat(totalExpense.innerHTML.replace(/,/g, ""));
     let Budget = Income - Expense;
     totalBudget.innerHTML = formatMoney(Budget);
@@ -61,7 +61,26 @@ calculateBudget();
 /**
  * Task 3: Delete Entry
  */
-function deleteEntry() {}
+function deleteEntry() {const listItem = this.closest("li");
+const list = listItem.parentElement;
+const valueString = listItem.querySelector(".text-green-600, .text-red-600").innerHTML.replace(/,/g, "");
+const value = parseFloat(valueString);
+
+
+list.removeChild(listItem);
+
+
+if (list.id === "income-list") {
+  calculateIncome();
+} else if (list.id === "expense-list") {
+  calculateExpense();
+}
+}
+const existingDeleteButtons = document.querySelectorAll("#income-list .text-red-500, #expense-list .text-red-500");
+existingDeleteButtons.forEach(button => {
+button.addEventListener("click", deleteEntry);
+});
+
 
 function addEntry() {
   const type = selectInput.value;
